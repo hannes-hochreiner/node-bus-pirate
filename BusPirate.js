@@ -32,7 +32,7 @@ Object.assign(BusPirate.prototype, i2c)
 
 BusPirate.prototype.reset = function(){
   console.log('resetting')
-  this.port.write([0x0F])
+  this.port.write([0x00, 0x0F])
 }
 
 BusPirate.prototype.start = function(){
