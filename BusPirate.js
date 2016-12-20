@@ -3,6 +3,7 @@ const EventEmitter = require('events').EventEmitter
 const SerialPort = require('serialport')
 
 const i2c = require('./lib/i2c.js')
+const spi = require('./lib/spi.js')
 
 function BusPirate(options){
   EventEmitter.call(this)
@@ -18,6 +19,7 @@ function BusPirate(options){
   this.port.on('open', function(){ this.emit('open') }.bind(this))
 
   this.port.on('data', function (data){
+    console.log(data);
     data = Buffer.from(data).toString()
     console.log(data)
     if(data.indexOf('BBIO1') !== -1){
@@ -29,6 +31,7 @@ function BusPirate(options){
 util.inherits(BusPirate, EventEmitter)
 
 Object.assign(BusPirate.prototype, i2c)
+Object.assign(BusPirate.prototype, spi)
 
 BusPirate.prototype.reset = function(){
   console.log('resetting')
